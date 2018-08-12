@@ -42,7 +42,7 @@ setup(
     zip_safe=False,
     author="Ankur Srivastava",
     author_email="best.ankur@gmail.com",
-    download_url="github.com/ansrivas/pyswitcheo/{}.tar.gz".format(get_version()),
+    download_url="github.com/ansrivas/pyswitcheo/archive/{}.tar.gz".format(get_version()),
     classifiers=[
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7"]
