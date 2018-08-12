@@ -2,8 +2,7 @@
 pyswitcheo
 ==========
 
-
-.. image:: https://github.com/ansrivas/pyswitcheo/blob/master/docs/source/_static/2.png
+.. image:: https://raw.githubusercontent.com/ansrivas/pyswitcheo/master/docs/source/_static/2.png 
    :width: 100px
    :height: 100px
    :alt: Switcheo Decentralized Exchange
