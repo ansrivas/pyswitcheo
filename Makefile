@@ -7,17 +7,13 @@ help:             ## Show available options with this Makefile
 test:             ## Run all the tests
 	python setup.py test
 
-.PHONY : readme_to_rst
-readme_to_rst: ## Convert README.md to README.rst for the sake of pip documentation.
-	m2r --overwrite README.md
-
 .PHONY : upload_test_pypi
-upload_test_pypi: readme_to_rst ## Build and upload distribution to testpypi server
+upload_test_pypi: ## Build and upload distribution to testpypi server
 	python setup.py sdist bdist_wheel --dist-dir dist && \
 	twine upload --skip-existing --repository testpypi dist/*
 
 .PHONY : upload_pypi
-upload_pypi: readme_to_rst  ## Build and upload distribution to pypi server
+upload_pypi: ## Build and upload distribution to pypi server
 	python setup.py sdist bdist_wheel --dist-dir dist && \
 	twine upload --skip-existing --repository pypi dist/*
 
