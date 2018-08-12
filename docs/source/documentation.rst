@@ -31,3 +31,12 @@ pyswitcheo.utils module
    :members:
    :undoc-members:
    :show-inheritance:
+
+
+pyswitcheo.serialization module
+-----------------------
+
+.. automodule:: pyswitcheo.serialization
+  :members:
+  :undoc-members:
+  :show-inheritance:
