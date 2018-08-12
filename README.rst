@@ -49,7 +49,7 @@ Client example
           print(json.loads(resp.text.encode("UTF-8")))
 
 
-More examples are located at `examples <https://github.com/ansrivas/pyswitcheo/examples>`_
+More examples are located at `examples <https://github.com/ansrivas/pyswitcheo/tree/master/examples>`_
 
 
 Development Installation
