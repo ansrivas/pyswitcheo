@@ -86,10 +86,10 @@ Documentation theme is highly inspired by `Aiohttp <http://docs.aiohttp.org/en/s
 
 .. |License: MIT| image:: https://img.shields.io/badge/License-MIT-yellow.svg
    :target: https://opensource.org/licenses/MIT
-.. |CircleCI| image:: https://circleci.com/gh/ansrivsa/pyswitcheo.svg?style=svg
-   :target: https://circleci.com/gh/ansrivsa/pyswitcheo
-.. |Coverage| image:: https://coveralls.io/repos/github/ansrivsa/pyswitcheo/badge.svg
-   :target: https://coveralls.io/github/ansrivsa/pyswitcheo
+.. |CircleCI| image:: https://circleci.com/gh/ansrivas/pyswitcheo.svg?style=svg
+   :target: https://circleci.com/gh/ansrivas/pyswitcheo
+.. |Coverage| image:: https://coveralls.io/repos/github/ansrivas/pyswitcheo/badge.svg
+   :target: https://coveralls.io/github/ansrivas/pyswitcheo
 .. |Documentation| image:: https://readthedocs.org/projects/test-repo-2/badge/?version=latest
   :target: https://test-repo-2.readthedocs.io/en/latest/?badge=latest
   :alt: Documentation Status
