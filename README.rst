@@ -2,7 +2,7 @@
 pyswitcheo
 ==========
 
-.. image:: https://raw.githubusercontent.com/ansrivas/pyswitcheo/master/docs/source/_static/2.png 
+.. image:: https://raw.githubusercontent.com/ansrivas/pyswitcheo/master/docs/source/_static/2.png
    :width: 100px
    :height: 100px
    :alt: Switcheo Decentralized Exchange
@@ -89,6 +89,6 @@ Documentation theme is highly inspired by `Aiohttp <http://docs.aiohttp.org/en/s
    :target: https://circleci.com/gh/ansrivas/pyswitcheo
 .. |Coverage| image:: https://coveralls.io/repos/github/ansrivas/pyswitcheo/badge.svg
    :target: https://coveralls.io/github/ansrivas/pyswitcheo
-.. |Documentation| image:: https://readthedocs.org/projects/test-repo-2/badge/?version=latest
-  :target: https://test-repo-2.readthedocs.io/en/latest/?badge=latest
+.. |Documentation| image:: https://readthedocs.org/projects/pyswitcheo/badge/?version=latest
+  :target: https://pyswitcheo.readthedocs.io/en/latest/?badge=latest
   :alt: Documentation Status
