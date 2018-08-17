@@ -36,7 +36,8 @@ def test_get_exchange_timestamp(url):
     assert "timestamp" in json_response
 
     now = get_current_epoch_milli()
-    assert abs(json_response["timestamp"] - now) <= 60, "Exchange timestamp is way off than current timestmap"
+    allowed_drift = 60 * 1000  # 60 seconds, represented in milliseconds
+    assert abs(json_response["timestamp"] - now) <= allowed_drift, "Exchange ts is way off than current timestmap"
 
 
 def test_list_contracts(url):
