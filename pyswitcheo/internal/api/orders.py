@@ -19,7 +19,7 @@ from pyswitcheo.crypto_utils import (
     encode_msg,
     get_script_hash_from_address,
     get_private_key_from_wif,
-    get_public_key_script_hash_from_wif,
+    get_script_hash_from_wif,
 )
 
 logger = logging.getLogger(__name__)
@@ -132,14 +132,14 @@ def _create_order(
 
     # The order creator's address. Do not include this in the parameters to be signed.
     # This needs to be the script hash of the public key
-    address_script_hash = get_public_key_script_hash_from_wif(priv_key_wif)
+    script_hash = get_script_hash_from_wif(priv_key_wif)
     pk = get_private_key_from_wif(priv_key_wif)
 
     signable_params_json_str = utils.jsonify(signable_params)
     encoded_msg = encode_msg(signable_params_json_str)
     signature = sign_msg(encoded_msg, pk)
 
-    params = {**signable_params, "signature": signature, "address": address_script_hash}
+    params = {**signable_params, "signature": signature, "address": script_hash}
 
     logger.debug("Params being sent to create orders: {0}".format(params))
     url = utils.format_urls(base_url, orders.CREATE_ORDER)
@@ -200,8 +200,8 @@ def _create_cancellation(base_url, order_id, priv_key_wif):
     encoded_msg = encode_msg(signable_params_json_str)
     signature = sign_msg(encoded_msg, priv_key)
 
-    address_script_hash = get_public_key_script_hash_from_wif(priv_key_wif)
-    params = {**signable_params, "signature": signature, "address": address_script_hash}
+    script_hash = get_script_hash_from_wif(priv_key_wif)
+    params = {**signable_params, "signature": signature, "address": script_hash}
 
     logger.debug("Params being sent to create deposit: {0}".format(params))
     url = utils.format_urls(base_url, orders.CREATE_CANCELLATION)
