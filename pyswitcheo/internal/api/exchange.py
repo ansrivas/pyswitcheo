@@ -82,8 +82,8 @@ def _list_contracts(base_url):
     return utils.response_else_exception(resp)
 
 
-def _get_contract_tokens(base_url):
-    """Fetch updated hashes of contracts deployed by Switcheo with their precision.
+def _get_contract_tokens_info(base_url):
+    """Fetch updated hashes of contracts deployed by Switcheo along with their precision.
 
     Args:
         base_url (str): This paramter governs whether to connect to test or mainnet.

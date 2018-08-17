@@ -52,7 +52,7 @@ def test_list_contracts(url):
 
 def test_get_contract_tokens(url):
     """Test listing of contract tokens with the deployed hash and their precision."""
-    response = exchange._get_contract_tokens(url.testnet)
+    response = exchange._get_contract_tokens_info(url.testnet)
 
     assert response.status_code == HTTPStatus.OK
 
