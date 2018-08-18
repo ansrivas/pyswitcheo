@@ -30,7 +30,7 @@ if __name__ == '__main__':
     # list_order(client, address, contract_hash)
 
     # Following can be used to create orders
-    create_order_resp = client.create_order(priv_key_wif=priv_key_wif, pair="SWTH_NEO",
+    create_order_resp = client.create_order(priv_key_wif=priv_key_wif, pair="SWTH_NEO", asset_id="SWTH",
                                             blockchain="neo", side="sell", price=0.01, want_amount=0.05,
                                             use_native_tokens=True, order_type="limit", contract_hash=contract_hash)
 

@@ -46,7 +46,7 @@ def _create_deposit(base_url, priv_key_wif, asset_id, amount, contract_hash, blo
     signable_params = {
         "blockchain": blockchain,
         "asset_id": asset_id,
-        "amount": utils.convert_to_neo_asset_amount(amount),
+        "amount": utils.convert_to_neo_asset_amount(amount, asset_id, base_url),
         "timestamp": utils.get_current_epoch_milli(),
         "contract_hash": contract_hash,
     }

@@ -5,7 +5,7 @@
 import pytest
 from http import HTTPStatus
 from pyswitcheo.internal.urls import balances
-from pyswitcheo.utils import format_urls, response_else_exception, jsonify
+from pyswitcheo.utils import format_urls, response_else_exception, jsonify, convert_to_neo_asset_amount
 
 
 @pytest.mark.parametrize("base_url, test_end_point, expected", [
@@ -48,3 +48,14 @@ def test_jsonify(json_object, want):
     """Tests for jsonify function."""
     got = jsonify(json_object)
     assert got == want
+
+
+@pytest.mark.parametrize("asset_id, amount, expected_neo_precision_amount", [
+    ("SWTH", 100, 10000000000),
+    ("GAS", 100, 10000000000),
+])
+def test_convert_to_neo_asset_amount(asset_id, amount, expected_neo_precision_amount, url):
+    """Test convert a given input to a neo asset precision."""
+    actual = convert_to_neo_asset_amount(amount=amount, asset_id=asset_id, base_url=url.testnet)
+
+    assert actual == expected_neo_precision_amount

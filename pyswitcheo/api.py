@@ -307,7 +307,7 @@ class SwitcheoApi(object):
         """
         return orders._list_orders(self.base_url, address, contract_hash, pair=None)
 
-    def create_order(self, priv_key_wif, pair, side, price, want_amount,
+    def create_order(self, priv_key_wif, pair, side, price, want_amount, asset_id,
                      use_native_tokens, contract_hash, blockchain="neo", order_type='limit'):
         """Create an order on SWTH DEX.
 
@@ -327,6 +327,7 @@ class SwitcheoApi(object):
             side (str)               : Whether to buy or sell on this pair. Possible values are: buy, sell.
             price (str)              : Buy or sell price to 8 decimal places precision.
             want_amount (int)        : Amount of tokens offered in the order.
+            asset_id (str)           : Asset which is being traded for eg. in SWTH_NEO then its SWTH
             use_native_tokens (bool) : Whether to use SWTH as fees or not. Possible values are: true or false.
             order_type (str)         : Order type, possible values are: limit.
             contract_hash (str)      : Switcheo Exchange contract hash to execute the deposit on.
@@ -336,7 +337,7 @@ class SwitcheoApi(object):
         """
         orders_response = orders._create_order(base_url=self.base_url, priv_key_wif=priv_key_wif, pair=pair,
                                                blockchain=blockchain, side=side, price=price, want_amount=want_amount,
-                                               use_native_tokens=use_native_tokens,
+                                               use_native_tokens=use_native_tokens, asset_id=asset_id,
                                                order_type=order_type, contract_hash=contract_hash,
                                                )
 

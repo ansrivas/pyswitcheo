@@ -79,6 +79,7 @@ def _create_order(
     side,
     price,
     want_amount,
+    asset_id,
     use_native_tokens,
     order_type,
     contract_hash,
@@ -104,6 +105,7 @@ def _create_order(
         side (str)               : Whether to buy or sell on this pair. Possible values are: buy, sell.
         price (str)              : Buy or sell price to 8 decimal places precision.
         want_amount (int)        : Amount of tokens offered in the order.
+        asset_id (str)           : Asset which is being traded for eg. in SWTH_NEO then its SWTH
         use_native_tokens (bool) : Whether to use SWTH as fees or not. Possible values are: true or false.
         order_type (str)         : Order type, possible values are: limit.
         contract_hash (str)      : Switcheo Exchange contract hash to execute the deposit on.
@@ -116,7 +118,7 @@ def _create_order(
     timestamp = utils.get_current_epoch_milli()
 
     # TODO: (ansrivas) Check how to handle currencies which are not divisible, for eg. NEO ( until v3 is released)
-    want_amount = utils.convert_to_neo_asset_amount(want_amount)
+    want_amount = utils.convert_to_neo_asset_amount(want_amount, asset_id, base_url)
     price = Fixed8(price).value
     signable_params = {
         "blockchain": blockchain,
