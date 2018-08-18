@@ -12,12 +12,12 @@ pyswitcheo
 
 **pyswitcheo** is a simple python client to interact with `Switcheo Decentralized Exchange <https://switcheo.exchange/>`_
 
-Current Stable Version
+Current Alpha Version
 ----------------------
 
 ::
 
-    0.1.0
+    0.1.1
 
 Installation
 ------------
