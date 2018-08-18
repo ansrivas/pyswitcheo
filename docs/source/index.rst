@@ -85,6 +85,7 @@ Documentation
    documentation
    ratelimits
    endpoints
+   examples
 
 .. |License: MIT| image:: https://img.shields.io/badge/License-MIT-yellow.svg
   :target: https://opensource.org/licenses/MIT

@@ -19,7 +19,7 @@ from pyswitcheo.crypto_utils import (
     encode_msg,
     get_script_hash_from_address,
     get_private_key_from_wif,
-    get_public_key_script_hash_from_wif,
+    get_script_hash_from_wif,
 )
 
 logger = logging.getLogger(__name__)
@@ -79,6 +79,7 @@ def _create_order(
     side,
     price,
     want_amount,
+    asset_id,
     use_native_tokens,
     order_type,
     contract_hash,
@@ -104,6 +105,7 @@ def _create_order(
         side (str)               : Whether to buy or sell on this pair. Possible values are: buy, sell.
         price (str)              : Buy or sell price to 8 decimal places precision.
         want_amount (int)        : Amount of tokens offered in the order.
+        asset_id (str)           : Asset which is being traded for eg. in SWTH_NEO then its SWTH
         use_native_tokens (bool) : Whether to use SWTH as fees or not. Possible values are: true or false.
         order_type (str)         : Order type, possible values are: limit.
         contract_hash (str)      : Switcheo Exchange contract hash to execute the deposit on.
@@ -116,7 +118,7 @@ def _create_order(
     timestamp = utils.get_current_epoch_milli()
 
     # TODO: (ansrivas) Check how to handle currencies which are not divisible, for eg. NEO ( until v3 is released)
-    want_amount = utils.convert_to_neo_asset_amount(want_amount)
+    want_amount = utils.convert_to_neo_asset_amount(want_amount, asset_id, base_url)
     price = Fixed8(price).value
     signable_params = {
         "blockchain": blockchain,
@@ -132,14 +134,14 @@ def _create_order(
 
     # The order creator's address. Do not include this in the parameters to be signed.
     # This needs to be the script hash of the public key
-    address_script_hash = get_public_key_script_hash_from_wif(priv_key_wif)
+    script_hash = get_script_hash_from_wif(priv_key_wif)
     pk = get_private_key_from_wif(priv_key_wif)
 
     signable_params_json_str = utils.jsonify(signable_params)
     encoded_msg = encode_msg(signable_params_json_str)
     signature = sign_msg(encoded_msg, pk)
 
-    params = {**signable_params, "signature": signature, "address": address_script_hash}
+    params = {**signable_params, "signature": signature, "address": script_hash}
 
     logger.debug("Params being sent to create orders: {0}".format(params))
     url = utils.format_urls(base_url, orders.CREATE_ORDER)
@@ -200,8 +202,8 @@ def _create_cancellation(base_url, order_id, priv_key_wif):
     encoded_msg = encode_msg(signable_params_json_str)
     signature = sign_msg(encoded_msg, priv_key)
 
-    address_script_hash = get_public_key_script_hash_from_wif(priv_key_wif)
-    params = {**signable_params, "signature": signature, "address": address_script_hash}
+    script_hash = get_script_hash_from_wif(priv_key_wif)
+    params = {**signable_params, "signature": signature, "address": script_hash}
 
     logger.debug("Params being sent to create deposit: {0}".format(params))
     url = utils.format_urls(base_url, orders.CREATE_CANCELLATION)

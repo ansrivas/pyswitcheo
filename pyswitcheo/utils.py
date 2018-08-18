@@ -8,8 +8,9 @@ import logging
 import datetime
 from http import HTTPStatus
 from pyswitcheo.errors import HTTPResponseError
+from pyswitcheo.internal.api import exchange
 
-NEO_ASSET_PRECISION = 8
+
 logger = logging.getLogger(__name__)
 
 
@@ -27,9 +28,26 @@ def format_urls(base_url, end_point):
     return url
 
 
-def convert_to_neo_asset_amount(amount):
-    """Convert a given input to a neo asset precision."""
-    return int(amount * math.pow(10, NEO_ASSET_PRECISION))
+def convert_to_neo_asset_amount(amount, asset_id, base_url):
+    """Convert a given input to a neo asset precision.
+
+    Internally this API queries the Switcheo exchange to get the correct precision
+    for a given asset.
+
+    Args:
+        amount (int)   : Input amount for which precision needs to be calculated.
+        asset_id (str) : A string representing the correct asset.
+        base_url (str) : URL of the switcheo exchange which will return the correct decimal precision.
+    """
+    # sanitize the asset_id
+    asset_id = str(asset_id).lower()
+    response = exchange._get_contract_tokens_info(base_url)
+    json_resp = response_to_json(response)
+
+    # sanitize the json_response, i.e. all keys should be lower
+    json_resp_sanitized = {str(k).lower(): v for k, v in json_resp.items()}
+    precision = json_resp_sanitized[asset_id]["decimals"]
+    return int(amount * math.pow(10, precision))
 
 
 def response_else_exception(response):

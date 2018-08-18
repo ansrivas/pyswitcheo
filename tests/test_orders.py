@@ -31,7 +31,7 @@ def test_create_and_execute_orders(url):
     # address = "AG9YqjpmoQC5Ufxo2JUr8zCSrXba9krc7g"
     priv_key_wif = "L4FSnRosoUv22cCu5z7VEEGd2uQWTK7Me83vZxgQQEsJZ2MReHbu"
     orders_response = orders._create_order(base_url=url.testnet, priv_key_wif=priv_key_wif, pair="SWTH_NEO",
-                                           blockchain="neo", side="sell", price=0.1, want_amount=0.5,
+                                           blockchain="neo", side="sell", price=0.1, want_amount=0.5, asset_id="SWTH",
                                            use_native_tokens=True, order_type="limit", contract_hash=contract_hash)
 
     orders_json_resp = response_to_json(orders_response)

@@ -3,10 +3,9 @@
 """Base API implementation for pyswitcheo."""
 
 from pyswitcheo.internal.api import balances
-from pyswitcheo.internal.api import contracts
 from pyswitcheo.internal.api import deposits
 from pyswitcheo.internal.api import offers
-from pyswitcheo.internal.api import pairs
+from pyswitcheo.internal.api import exchange
 from pyswitcheo.internal.api import tickers
 from pyswitcheo.internal.api import trades
 from pyswitcheo.internal.api import orders
@@ -84,7 +83,7 @@ class SwitcheoApi(object):
               }
             }
         """
-        return contracts._list_contracts(self.base_url)
+        return exchange._list_contracts(self.base_url)
 
     def list_pairs(self, bases):
         """Fetch available currency pairs on Switcheo Exchange filtered by the base parameter. Defaults to all pairs.
@@ -102,7 +101,53 @@ class SwitcheoApi(object):
               "SWTH_NEO"
             ]
         """
-        pairs._list_currency_pairs(self.base_url, bases)
+        exchange._list_currency_pairs(self.base_url, bases)
+
+    def get_exchange_timestamp(self):
+        """Returns the current timestamp in the exchange.
+
+        This value should be fetched and used when a timestamp parameter is required for API requests.
+        If the timestamp used for your API request is not within an acceptable range of the exchange's
+        timestamp then an invalid signature error will be returned. The acceptable range might vary, but it
+        should be less than one minute.
+
+        Returns:
+            If response from the server is HTTP_OK (200) then this returns the requests.response object
+
+            Example response
+            {
+              "timestamp": 1534392760908
+            }
+        """
+        return exchange._get_exchange_timestamp(self.base_url)
+
+    def get_contract_tokens_info(self):
+        """Fetch updated hashes of contracts deployed by Switcheo along with their precision.
+
+        Args:
+            base_url (str): This paramter governs whether to connect to test or mainnet.
+
+        Returns:
+            If response from the server is HTTP_OK (200) then this returns the requests.response object
+
+            Example response
+            {
+              "NEO": {
+                "hash": "c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b",
+                "decimals": 8
+              },
+              "GAS": {
+                "hash": "602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7",
+                "decimals": 8
+              },
+              "SWTH": {
+                "hash": "ab38352559b8b203bde5fddfa0b07d8b2525e132",
+                "decimals": 8
+              },
+              ...
+            }
+        """
+        return exchange._get_contract_tokens_info(self.base_url)
 
     def list_balances(self, addresses, contract_hashes):
         """List contract balances of the given address and contract hashes.
@@ -262,7 +307,7 @@ class SwitcheoApi(object):
         """
         return orders._list_orders(self.base_url, address, contract_hash, pair=None)
 
-    def create_order(self, priv_key_wif, pair, side, price, want_amount,
+    def create_order(self, priv_key_wif, pair, side, price, want_amount, asset_id,
                      use_native_tokens, contract_hash, blockchain="neo", order_type='limit'):
         """Create an order on SWTH DEX.
 
@@ -282,6 +327,7 @@ class SwitcheoApi(object):
             side (str)               : Whether to buy or sell on this pair. Possible values are: buy, sell.
             price (str)              : Buy or sell price to 8 decimal places precision.
             want_amount (int)        : Amount of tokens offered in the order.
+            asset_id (str)           : Asset which is being traded for eg. in SWTH_NEO then its SWTH
             use_native_tokens (bool) : Whether to use SWTH as fees or not. Possible values are: true or false.
             order_type (str)         : Order type, possible values are: limit.
             contract_hash (str)      : Switcheo Exchange contract hash to execute the deposit on.
@@ -291,7 +337,7 @@ class SwitcheoApi(object):
         """
         orders_response = orders._create_order(base_url=self.base_url, priv_key_wif=priv_key_wif, pair=pair,
                                                blockchain=blockchain, side=side, price=price, want_amount=want_amount,
-                                               use_native_tokens=use_native_tokens,
+                                               use_native_tokens=use_native_tokens, asset_id=asset_id,
                                                order_type=order_type, contract_hash=contract_hash,
                                                )
 

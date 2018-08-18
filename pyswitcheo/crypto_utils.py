@@ -165,7 +165,7 @@ def get_wif_from_private_key(priv_key):
     return base58.b58encode(binascii.unhexlify(final_key))
 
 
-def get_public_key_script_hash_from_wif(wif):
+def get_script_hash_from_wif(wif):
     """Fetch the script hash of the public key from a wif represented in string format.
 
     Args:
