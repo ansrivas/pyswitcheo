@@ -17,7 +17,7 @@ def get_version():
                          version_file.read()).group('version')
 
 
-install_requires = ['requests==2.22.0', 'neocore', 'jsonschema==2.6.0']
+install_requires = ['requests==2.22.0', 'neocore', 'jsonschema==3.0.1']
 
 
 test_requires = ['pytest', 'pytest-sugar', 'pytest-asyncio', 'pytest-cov', 'jsonschema']
